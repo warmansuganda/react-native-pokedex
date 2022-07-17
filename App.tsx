@@ -9,32 +9,16 @@
  */
 
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-function HomeScreen() {
-  return (
-    <View style={styles.sectionContainer}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
-
-const Stack = createNativeStackNavigator();
+import RootNavigation from '@navigations/index';
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
+      <RootNavigation />
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-});
 
 export default App;
