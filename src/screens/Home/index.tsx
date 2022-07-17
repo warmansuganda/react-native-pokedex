@@ -17,7 +17,7 @@ function HomeScreen() {
       <Button
         title="Go to Details"
         onPress={() =>
-          navigation.navigate('Details', { username: 'Warman Suganda' })
+          navigation.navigate('Details', { username: 'warmansuganda' })
         }
       />
     </View>

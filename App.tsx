@@ -10,14 +10,18 @@
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { QueryClientProvider } from 'react-query';
 
 import RootNavigation from '@navigations/index';
+import { queryClient } from '@services/client';
 
 function App() {
   return (
-    <NavigationContainer>
-      <RootNavigation />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <RootNavigation />
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
