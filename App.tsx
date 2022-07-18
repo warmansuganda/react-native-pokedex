@@ -8,16 +8,21 @@
  * @format
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import RootNavigation from '@navigations/index';
+import Theme from '@theme/index';
 
 function App() {
   return (
-    <NavigationContainer>
-      <RootNavigation />
-    </NavigationContainer>
+    <Fragment>
+      <Theme>
+        <NavigationContainer>
+          <RootNavigation />
+        </NavigationContainer>
+      </Theme>
+    </Fragment>
   );
 }
 
