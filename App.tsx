@@ -8,20 +8,22 @@
  * @format
  */
 
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { Fragment } from 'react';
 import { QueryClientProvider } from 'react-query';
 
-import RootNavigation from '@navigations/index';
+import Navigation from '@navigations/index';
+import Theme from '@theme/index';
 import { queryClient } from '@services/client';
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <RootNavigation />
-      </NavigationContainer>
-    </QueryClientProvider>
+    <Fragment>
+      <QueryClientProvider client={queryClient}>
+        <Theme>
+          <Navigation />
+        </Theme>
+      </QueryClientProvider>
+    </Fragment>
   );
 }
 

@@ -3,7 +3,7 @@ import { QueryClient } from 'react-query';
 
 const config = {
   API_URL: 'https://api.github.com',
-  API_TOKEN: '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',
+  API_TOKEN: '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',
 };
 
 const client = axios.create({
