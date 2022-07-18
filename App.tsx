@@ -9,18 +9,15 @@
  */
 
 import React, { Fragment } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 
-import RootNavigation from '@navigations/index';
+import Navigation from '@navigations/index';
 import Theme from '@theme/index';
 
 function App() {
   return (
     <Fragment>
       <Theme>
-        <NavigationContainer>
-          <RootNavigation />
-        </NavigationContainer>
+        <Navigation />
       </Theme>
     </Fragment>
   );
