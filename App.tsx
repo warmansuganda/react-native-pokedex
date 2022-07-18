@@ -9,19 +9,23 @@
  */
 
 import React, { Fragment } from 'react';
+import { QueryClientProvider } from 'react-query';
 
 import Navigation from '@navigations/index';
 import Theme from '@theme/index';
 import { AppProvider } from '@context/app';
+import { queryClient } from '@services/client';
 
 function App() {
   return (
     <Fragment>
-      <AppProvider>
-        <Theme>
-          <Navigation />
-        </Theme>
-      </AppProvider>
+      <QueryClientProvider client={queryClient}>
+        <AppProvider>
+          <Theme>
+            <Navigation />
+          </Theme>
+        </AppProvider>
+      </QueryClientProvider>
     </Fragment>
   );
 }
