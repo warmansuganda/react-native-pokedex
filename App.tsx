@@ -8,16 +8,21 @@
  * @format
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import Navigation from '@navigations/index';
+import Theme from '@theme/index';
 import { AppProvider } from '@context/app';
 
 function App() {
   return (
-    <AppProvider>
-      <Navigation />
-    </AppProvider>
+    <Fragment>
+      <AppProvider>
+        <Theme>
+          <Navigation />
+        </Theme>
+      </AppProvider>
+    </Fragment>
   );
 }
 
