@@ -9,15 +9,15 @@
  */
 
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 
-import RootNavigation from '@navigations/index';
+import Navigation from '@navigations/index';
+import { AppProvider } from '@context/app';
 
 function App() {
   return (
-    <NavigationContainer>
-      <RootNavigation />
-    </NavigationContainer>
+    <AppProvider>
+      <Navigation />
+    </AppProvider>
   );
 }
 
