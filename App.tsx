@@ -8,8 +8,9 @@
  * @format
  */
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
+import LottieSplashScreen from 'react-native-lottie-splash-screen';
 
 import Navigation from '@navigations/index';
 import Theme from '@theme/index';
@@ -17,6 +18,10 @@ import { AppProvider } from '@context/app';
 import { queryClient } from '@services/client';
 
 function App() {
+  useEffect(() => {
+    LottieSplashScreen.hide();
+  }, []);
+
   return (
     <Fragment>
       <QueryClientProvider client={queryClient}>
