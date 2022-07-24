@@ -86,7 +86,7 @@ function HomeScreen() {
           <SearchIcon>
             <Icon name="search" size={24} color="gray" />
           </SearchIcon>
-          <SearchInput placeholder={t('Search pokemon')} />
+          <SearchInput placeholder={t('Search pokemon, i.e. pikachu')} />
         </SearchBox>
       </SearchSection>
       <FlatList data={data} renderItem={renderItem} />
