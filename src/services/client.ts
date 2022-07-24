@@ -4,9 +4,9 @@ import config from '@configs/app';
 
 const client = axios.create({
   baseURL: config.API_URL,
-  headers: {
-    Authorization: `token ${config.API_TOKEN}`,
-  },
+  // headers: {
+  //   Authorization: `token ${config.API_TOKEN}`,
+  // },
 });
 
 export const queryClient = new QueryClient();
