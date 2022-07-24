@@ -17,6 +17,8 @@ import Theme from '@theme/index';
 import { AppProvider } from '@context/app';
 import { queryClient } from '@services/client';
 
+import '@locales/i18n';
+
 function App() {
   useEffect(() => {
     LottieSplashScreen.hide();

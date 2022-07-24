@@ -30,6 +30,7 @@ module.exports = {
           '@services': './src/services',
           '@theme': './src/theme',
           '@configs': './src/configs',
+          '@locales': './src/locales',
         },
       },
     ],
