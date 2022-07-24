@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { FlatList, View, TouchableOpacity } from 'react-native';
+import React, { useCallback } from 'react';
+
+import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { RootStackParamList } from '@navigations/types';
 import Icon from '@components/Icon';
 import { fetchPokemon } from '@services/pokemon';
 import { Pokemon, FetchPokemon } from '@services/pokemon/types';
+
+import ItemList from './ItemList';
 
 import {
   Container,
@@ -18,15 +21,6 @@ import {
   SearchLabel,
   SearchInput,
   SearchIcon,
-  PokemonCard,
-  PokemonAvatar,
-  PokemonImage,
-  PokemonDescription,
-  PokemonID,
-  PokemonName,
-  PokemonType,
-  PokemonTypeTitle,
-  PokemonTypeBox,
 } from './styles';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
@@ -37,52 +31,48 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<
 function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
-  const [page, setPage] = useState(1);
 
-  const { data } = useQuery<FetchPokemon, Error>(
-    ['fetch-pokemon', page],
-    () => fetchPokemon().then(res => res.data),
-    {
-      onError: e => {
-        console.log('error', e);
+  const { data, isLoading, fetchNextPage, isFetchingNextPage } =
+    useInfiniteQuery<FetchPokemon, Error>(
+      ['fetch-pokemon'],
+      ({ pageParam }) => fetchPokemon(pageParam),
+      {
+        getNextPageParam: lastPage => {
+          if (lastPage.next !== null) {
+            return lastPage.next;
+          }
+
+          return lastPage;
+        },
       },
-    },
-  );
+    );
+
+  const handleChangePage = useCallback(() => {
+    if (!isLoading && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, isLoading, isFetchingNextPage]);
 
   const handleFetchMore = useDebouncedCallback(() => {
-    console.log('load more');
+    handleChangePage();
   }, 500);
 
   const handleOpenDetail = (item: Pokemon) => {
-    console.log(item);
     navigation.push('Details', { name: item.name });
   };
 
   const renderItem = ({ item }: { item: Pokemon }) => (
-    <TouchableOpacity
-      activeOpacity={0.9}
-      onPress={() => handleOpenDetail(item)}>
-      <PokemonCard>
-        <PokemonDescription>
-          <View>
-            <PokemonID>#001</PokemonID>
-            <PokemonName>{item.name}</PokemonName>
-          </View>
-          <PokemonTypeBox>
-            <PokemonType>
-              <PokemonTypeTitle>Water</PokemonTypeTitle>
-            </PokemonType>
-          </PokemonTypeBox>
-        </PokemonDescription>
-        <PokemonAvatar>
-          <PokemonImage
-            source={{
-              uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
-            }}
-          />
-        </PokemonAvatar>
-      </PokemonCard>
-    </TouchableOpacity>
+    <ItemList item={item} openDetail={handleOpenDetail} />
+  );
+
+  const renderPlaceholder = () => (
+    <>
+      {Array(2)
+        .fill(null)
+        .map((_, index) => (
+          <ItemList.Placeholder key={index} />
+        ))}
+    </>
   );
 
   return (
@@ -99,10 +89,14 @@ function HomeScreen() {
       <FlatList
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
-        data={data?.results || []}
+        keyExtractor={item => item.name}
+        data={data?.pages.map(result => result.results).flat()}
         renderItem={renderItem}
         onEndReached={handleFetchMore}
         onEndReachedThreshold={0.2}
+        ListFooterComponent={
+          isLoading || isFetchingNextPage ? renderPlaceholder : null
+        }
       />
     </Container>
   );

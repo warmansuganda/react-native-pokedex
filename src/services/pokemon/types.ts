@@ -5,6 +5,7 @@ export interface Pokemon {
 
 export interface FetchPokemon {
   results: Pokemon[];
+  next: number | null;
 }
 
 export interface FindPokemon {
