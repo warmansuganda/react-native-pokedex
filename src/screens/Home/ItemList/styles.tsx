@@ -5,12 +5,19 @@ export const PokemonCard = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #2d2b2c;
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
   margin-bottom: 16px;
   margin-left: 16px;
   margin-right: 16px;
+  position: relative;
+  overflow: hidden;
+`;
+
+export const BackgroundAvatar = styled.View`
+  position: absolute;
+  right: 0;
+  left: 0;
 `;
 
 export const PokemonAvatar = styled.View`

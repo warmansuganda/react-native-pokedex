@@ -1,5 +1,5 @@
+import React, { useMemo } from 'react';
 import { Pokemon } from '@services/pokemon/types';
-import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 
 import {
@@ -12,6 +12,7 @@ import {
   PokemonType,
   PokemonTypeTitle,
   PokemonTypeBox,
+  BackgroundAvatar,
 } from './styles';
 
 import Placeholder from './placeholder';
@@ -22,9 +23,24 @@ interface ItemListProps {
 }
 
 function ItemList({ item, openDetail }: ItemListProps) {
+  const image = useMemo(
+    () =>
+      item.name === 'bulbasaur'
+        ? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png'
+        : 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
+    [item.name],
+  );
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={() => openDetail(item)}>
       <PokemonCard>
+        <BackgroundAvatar>
+          <PokemonImage
+            source={{
+              uri: image,
+            }}
+            blurRadius={100}
+          />
+        </BackgroundAvatar>
         <PokemonDescription>
           <View>
             <PokemonID>#001</PokemonID>
@@ -39,7 +55,7 @@ function ItemList({ item, openDetail }: ItemListProps) {
         <PokemonAvatar>
           <PokemonImage
             source={{
-              uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
+              uri: image,
             }}
           />
         </PokemonAvatar>

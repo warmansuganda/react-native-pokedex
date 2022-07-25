@@ -25,7 +25,6 @@ export const BackgroundIcon = styled.View`
 
 export const SearchSection = styled.View`
   display: flex;
-  margin-bottom: 20px;
   padding: 16px;
 `;
 
