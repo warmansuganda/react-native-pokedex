@@ -6258,6 +6258,11 @@ react-native-icomoon@^0.1.1:
   resolved "https://registry.yarnpkg.com/react-native-icomoon/-/react-native-icomoon-0.1.1.tgz#2c7be306c4e33b7a56f091018c41f072c3c54670"
   integrity sha512-/WHF2OXHGPZcjqEHutOtMIPFBMf9wfRXiA/uA5kSAr3WLhyZZ/wNMlz7C+XFjoqAE7D+M2ycDB37z6yZmnCTQg==
 
+react-native-linear-gradient@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.6.2.tgz#56598a76832724b2afa7889747635b5c80948f38"
+  integrity sha512-Z8Xxvupsex+9BBFoSYS87bilNPWcRfRsGC0cpJk72Nxb5p2nEkGSBv73xZbEHnW2mUFvP+huYxrVvjZkr/gRjQ==
+
 react-native-lottie-splash-screen@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-native-lottie-splash-screen/-/react-native-lottie-splash-screen-1.0.1.tgz#f195a04d3d36ef7f69361380f8c05267fb7b0a22"
