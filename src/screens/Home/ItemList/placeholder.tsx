@@ -5,13 +5,13 @@ import { PokemonCard } from './styles';
 
 function ItemListPlaceholder() {
   return (
-    <PokemonCard isPlaceholder>
+    <PokemonCard>
       <ContentLoader
         speed={2}
         width="100%"
         height={84}
         viewBox="0 0 340 84"
-        backgroundColor="#ffffff"
+        backgroundColor="#676666"
         foregroundColor="#ecebeb">
         <Rect x="0" y="0" rx="3" ry="3" width="67" height="11" />
         <Rect x="76" y="0" rx="3" ry="3" width="140" height="11" />

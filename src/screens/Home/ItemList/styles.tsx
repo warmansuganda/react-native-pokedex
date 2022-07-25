@@ -1,19 +1,16 @@
 import styled from '@emotion/native';
-import { StyleSheet } from 'react-native';
 
-interface PokemonCardProps {
-  isPlaceholder?: boolean;
-}
-
-export const PokemonCard = styled.View<PokemonCardProps>`
+export const PokemonCard = styled.View`
   padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: ${props => (props.isPlaceholder ? '#ced4da' : '#94dbef')};
+  background-color: #2d2b2c;
   border-radius: 16px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
 `;
 
 export const PokemonAvatar = styled.View`
@@ -61,17 +58,3 @@ export const PokemonTypeTitle = styled.Text`
   color: white;
   text-align: center;
 `;
-
-export const placeholder = StyleSheet.create({
-  PokemonID: {
-    width: 120,
-    height: 16,
-    borderRadius: 4,
-    marginBottom: 2,
-  },
-  PokemonName: {
-    width: 120,
-    height: 20,
-    borderRadius: 4,
-  },
-});

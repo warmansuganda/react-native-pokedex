@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 
-import { FlatList } from 'react-native';
+import { FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { useInfiniteQuery } from 'react-query';
 import { useDebouncedCallback } from 'use-debounce';
+import LinearGradient from 'react-native-linear-gradient';
 
 import { RootStackParamList } from '@navigations/types';
 import Icon from '@components/Icon';
@@ -16,6 +17,8 @@ import ItemList from './ItemList';
 
 import {
   Container,
+  MenuIcon,
+  BackgroundIcon,
   SearchBox,
   SearchSection,
   SearchLabel,
@@ -61,7 +64,7 @@ function HomeScreen() {
     navigation.push('Details', { name: item.name });
   };
 
-  const renderItem = ({ item }: { item: Pokemon }) => (
+  const renderItem: ListRenderItem<Pokemon> = ({ item }) => (
     <ItemList item={item} openDetail={handleOpenDetail} />
   );
 
@@ -77,15 +80,27 @@ function HomeScreen() {
 
   return (
     <Container>
-      <SearchSection>
-        <SearchLabel>{t('What are you looking for?')}</SearchLabel>
-        <SearchBox>
-          <SearchIcon>
-            <Icon name="search" size={24} color="gray" />
-          </SearchIcon>
-          <SearchInput placeholder={t('Search pokemon, i.e. pikachu')} />
-        </SearchBox>
-      </SearchSection>
+      <MenuIcon>
+        <Icon name="menu-alt-2" size={32} color="white" />
+      </MenuIcon>
+      <BackgroundIcon>
+        <Icon name="pokemon" size={200} color="white" />
+      </BackgroundIcon>
+      <LinearGradient colors={['rgba(255, 255, 255, 0)', '#131313']}>
+        <SearchSection>
+          <SearchLabel>{t('What Pokémon are you looking for?')}</SearchLabel>
+          <SearchBox>
+            <SearchIcon>
+              <Icon name="search" size={24} color="white" />
+            </SearchIcon>
+            <SearchInput
+              placeholder={t('Search pokemon, i.e. pikachu')}
+              placeholderTextColor="#676666"
+            />
+          </SearchBox>
+        </SearchSection>
+      </LinearGradient>
+
       <FlatList
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}

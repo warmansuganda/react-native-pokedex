@@ -1,29 +1,48 @@
 import styled from '@emotion/native';
 
 export const Container = styled.View`
-  background-color: white;
+  background-color: #131313;
   flex: 1;
   display: flex;
-  padding: 16px;
+`;
+
+export const MenuIcon = styled.View`
+  padding: 10px 0 10px 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+`;
+
+export const BackgroundIcon = styled.View`
+  padding: 10px 0 10px 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  position: absolute;
+  opacity: 0.05;
+  right: -70px;
 `;
 
 export const SearchSection = styled.View`
   display: flex;
   margin-bottom: 20px;
+  padding: 16px;
 `;
 
 export const SearchLabel = styled.Text`
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  color: white;
 `;
 
 export const SearchBox = styled.View`
   display: flex;
-  border: 1px solid #ced4da;
+  border: 1px solid #2d2b2c;
   border-radius: 50px;
   overflow: hidden;
   flex-direction: row;
+  background-color: #2d2b2c;
 `;
 
 export const SearchIcon = styled.View`
@@ -35,4 +54,5 @@ export const SearchIcon = styled.View`
 export const SearchInput = styled.TextInput`
   padding: 10px 12px;
   flex: 1;
+  color: white;
 `;
