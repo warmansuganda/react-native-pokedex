@@ -30,7 +30,7 @@ function ItemList({ item, openDetail }: ItemListProps) {
   }, [item]);
 
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={() => openDetail(item)}>
+    <TouchableOpacity activeOpacity={0.5} onPress={() => openDetail(item)}>
       <PokemonCard>
         <BackgroundAvatar>
           <PokemonImage

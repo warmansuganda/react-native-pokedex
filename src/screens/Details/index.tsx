@@ -1,6 +1,7 @@
 import React, { useContext, useMemo } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text } from 'react-native';
 
+import PlainLayout from '@layouts/PlainLayout';
 import { AppStore } from '@context/app';
 
 function DetailsScreen() {
@@ -9,20 +10,10 @@ function DetailsScreen() {
   const pokemon = useMemo(() => appState.pokemon, [appState.pokemon]);
 
   return (
-    <View style={styles.sectionContainer}>
+    <PlainLayout>
       <Text>{`Hi, ${pokemon?.name}`}</Text>
-    </View>
+    </PlainLayout>
   );
 }
 
 export default DetailsScreen;
-
-const styles = StyleSheet.create({
-  sectionContainer: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 100,
-    marginBottom: 10,
-  },
-});

@@ -10,15 +10,15 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { RootStackParamList } from '@navigations/types';
 import Icon from '@components/Icon';
+import NavigationAction from '@components/NavigationAction';
 import { fetchPokemon } from '@services/pokemon';
 import { Pokemon, FetchPokemon } from '@services/pokemon/types';
 import { AppStore, AppTypeAction } from '@context/app';
-import PlainLayout from '@layouts/PlainLayout';
+import DefaultLayout from '@layouts/DefaultLayout';
 
 import ItemList from './ItemList';
 
 import {
-  MenuIcon,
   BackgroundIcon,
   SearchBox,
   SearchSection,
@@ -87,10 +87,10 @@ function HomeScreen() {
   );
 
   return (
-    <PlainLayout>
-      <MenuIcon>
-        <Icon name="menu-alt-2" size={32} color="white" />
-      </MenuIcon>
+    <DefaultLayout
+      title="Home"
+      accessoryLeft={<NavigationAction icon="menu-alt-2" />}
+      accessoryRight={<NavigationAction icon="heart" />}>
       <BackgroundIcon>
         <Icon name="pokemon" size={200} color="white" />
       </BackgroundIcon>
@@ -121,7 +121,7 @@ function HomeScreen() {
           isLoading || isFetchingNextPage ? renderPlaceholder : null
         }
       />
-    </PlainLayout>
+    </DefaultLayout>
   );
 }
 
