@@ -12,6 +12,7 @@ import React, { Fragment, useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { StatusBar } from 'react-native';
 import LottieSplashScreen from 'react-native-lottie-splash-screen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import Navigation from '@navigations/index';
 import Theme from '@theme/index';
@@ -31,7 +32,9 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AppProvider>
           <Theme>
-            <Navigation />
+            <SafeAreaProvider>
+              <Navigation />
+            </SafeAreaProvider>
           </Theme>
         </AppProvider>
       </QueryClientProvider>
