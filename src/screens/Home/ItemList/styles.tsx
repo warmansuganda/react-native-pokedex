@@ -47,17 +47,20 @@ export const PokemonName = styled.Text`
   color: white;
   font-weight: bold;
   font-size: 18px;
+  text-transform: capitalize;
 `;
 
 export const PokemonTypeBox = styled.View`
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
 `;
 
 export const PokemonType = styled.View`
-  background-color: rgba(52, 52, 52, 0.3);
-  padding: 1px 8px;
+  background-color: rgba(52, 52, 52, 1);
+  padding: 0 8px 2px 8px;
   border-radius: 10px;
+  margin-right: 4px;
 `;
 
 export const PokemonTypeTitle = styled.Text`

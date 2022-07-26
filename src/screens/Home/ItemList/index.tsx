@@ -23,13 +23,18 @@ interface ItemListProps {
 }
 
 function ItemList({ item, openDetail }: ItemListProps) {
-  const image = useMemo(
-    () =>
-      item.name === 'bulbasaur'
-        ? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png'
-        : 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png',
-    [item.name],
-  );
+  const image = useMemo(() => {
+    // return item.sprites.home.front_default;
+    return item.sprites.other.home.front_default;
+    // if (item.name === 'charmander') {
+    //   return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png';
+    // }
+
+    // return item.name === 'bulbasaur'
+    //   ? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png'
+    //   : 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png';
+  }, [item]);
+
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={() => openDetail(item)}>
       <PokemonCard>
@@ -38,18 +43,20 @@ function ItemList({ item, openDetail }: ItemListProps) {
             source={{
               uri: image,
             }}
-            blurRadius={100}
+            blurRadius={80}
           />
         </BackgroundAvatar>
         <PokemonDescription>
           <View>
-            <PokemonID>#001</PokemonID>
+            <PokemonID>{`#${item.id}`}</PokemonID>
             <PokemonName>{item.name}</PokemonName>
           </View>
           <PokemonTypeBox>
-            <PokemonType>
-              <PokemonTypeTitle>Water</PokemonTypeTitle>
-            </PokemonType>
+            {item.types.map(({ type }) => (
+              <PokemonType key={type.name}>
+                <PokemonTypeTitle>{type.name}</PokemonTypeTitle>
+              </PokemonType>
+            ))}
           </PokemonTypeBox>
         </PokemonDescription>
         <PokemonAvatar>

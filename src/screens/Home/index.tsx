@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -49,6 +49,11 @@ function HomeScreen() {
         },
       },
     );
+
+  const pokemons = useMemo(
+    () => data?.pages.map(result => result.results).flat(),
+    [data?.pages],
+  );
 
   const handleChangePage = useCallback(() => {
     if (!isLoading && !isFetchingNextPage) {
@@ -105,7 +110,7 @@ function HomeScreen() {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.name}
-        data={data?.pages.map(result => result.results).flat()}
+        data={pokemons}
         renderItem={renderItem}
         onEndReached={handleFetchMore}
         onEndReachedThreshold={0.2}
