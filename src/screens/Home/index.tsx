@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useContext } from 'react';
 
 import { FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +12,7 @@ import { RootStackParamList } from '@navigations/types';
 import Icon from '@components/Icon';
 import { fetchPokemon } from '@services/pokemon';
 import { Pokemon, FetchPokemon } from '@services/pokemon/types';
+import { AppStore, AppTypeAction } from '@context/app';
 
 import ItemList from './ItemList';
 
@@ -34,6 +35,7 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<
 function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
+  const { appDispatch } = useContext(AppStore);
 
   const { data, isLoading, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery<FetchPokemon, Error>(
@@ -66,7 +68,8 @@ function HomeScreen() {
   }, 500);
 
   const handleOpenDetail = (item: Pokemon) => {
-    navigation.push('Details', { name: item.name });
+    appDispatch({ type: AppTypeAction.SELECT_POKEMON, payload: item });
+    navigation.push('Details');
   };
 
   const renderItem: ListRenderItem<Pokemon> = ({ item }) => (

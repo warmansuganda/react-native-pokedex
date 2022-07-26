@@ -1,8 +1,9 @@
 import React, { createContext, Dispatch, ReactNode, useReducer } from 'react';
-import { AppState, AppAction } from './types';
+import { AppState, AppAction, AppTypeAction } from './types';
 
 const initialState: AppState = {
   theme: 'light',
+  pokemon: undefined,
 };
 
 export const AppStore = createContext<{
@@ -23,8 +24,10 @@ export function AppProvider({ children }: AppProviderProps) {
   const [appState, appDispatch] = useReducer(
     (state: AppState, action: AppAction) => {
       switch (action.type) {
-        case 'CHANGE_THEME':
+        case AppTypeAction.CHANGE_THEME:
           return { ...state, theme: action.payload };
+        case AppTypeAction.SELECT_POKEMON:
+          return { ...state, pokemon: action.payload };
         default:
           throw new Error();
       }
@@ -34,3 +37,5 @@ export function AppProvider({ children }: AppProviderProps) {
 
   return <Provider value={{ appState, appDispatch }}>{children}</Provider>;
 }
+
+export * from './types';

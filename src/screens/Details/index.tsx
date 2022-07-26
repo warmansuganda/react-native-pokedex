@@ -1,33 +1,16 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { useQuery } from 'react-query';
 
-import { RootStackParamList } from '@navigations/types';
-import { findPokemon } from '@services/pokemon';
-import { FindPokemon } from '@services/pokemon/types';
-
-type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+import { AppStore } from '@context/app';
 
 function DetailsScreen() {
-  const route = useRoute<DetailsScreenRouteProp>();
-  const { name } = route.params;
+  const { appState } = useContext(AppStore);
 
-  const { data } = useQuery<FindPokemon, Error>(
-    ['find-user', name],
-    () => findPokemon(name).then(res => res.data),
-    {
-      onError: e => {
-        console.log('error', e);
-      },
-    },
-  );
-
-  console.log(data);
+  const pokemon = useMemo(() => appState.pokemon, [appState.pokemon]);
 
   return (
     <View style={styles.sectionContainer}>
-      <Text>{`Hi, ${data?.name}`}</Text>
+      <Text>{`Hi, ${pokemon?.name}`}</Text>
     </View>
   );
 }
