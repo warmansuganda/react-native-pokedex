@@ -5,6 +5,7 @@ export const Wrapper = styled(View)`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  z-index: 100;
 `;
 
 export const Title = styled(Text)`
