@@ -10,6 +10,7 @@
 
 import React, { Fragment, useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
+import { StatusBar } from 'react-native';
 import LottieSplashScreen from 'react-native-lottie-splash-screen';
 
 import Navigation from '@navigations/index';
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <Fragment>
+      <StatusBar translucent backgroundColor="transparent" />
       <QueryClientProvider client={queryClient}>
         <AppProvider>
           <Theme>
