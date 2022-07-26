@@ -10,7 +10,7 @@
 
 import React, { Fragment, useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
-import { StatusBar } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import LottieSplashScreen from 'react-native-lottie-splash-screen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -32,7 +32,8 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AppProvider>
           <Theme>
-            <SafeAreaProvider>
+            <SafeAreaProvider
+              style={StyleSheet.flatten({ backgroundColor: '#131313' })}>
               <Navigation />
             </SafeAreaProvider>
           </Theme>
