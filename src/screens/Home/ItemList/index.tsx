@@ -42,7 +42,7 @@ function ItemList({ item, openDetail }: ItemListProps) {
         </BackgroundAvatar>
         <PokemonDescription>
           <View>
-            <PokemonID>{`#${zerofill(item.id, 3)}`}</PokemonID>
+            <PokemonID>{`#${zerofill(item.id, 4)}`}</PokemonID>
             <PokemonName>{item.name}</PokemonName>
           </View>
           <PokemonTypeBox>

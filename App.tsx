@@ -33,7 +33,9 @@ function App() {
         <AppProvider>
           <Theme>
             <SafeAreaProvider
-              style={StyleSheet.flatten({ backgroundColor: '#131313' })}>
+              style={StyleSheet.flatten({
+                backgroundColor: Theme.colors.background,
+              })}>
               <Navigation />
             </SafeAreaProvider>
           </Theme>

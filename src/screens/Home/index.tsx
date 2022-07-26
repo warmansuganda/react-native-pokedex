@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useInfiniteQuery } from 'react-query';
 import { useDebouncedCallback } from 'use-debounce';
 import LinearGradient from 'react-native-linear-gradient';
+import { useTheme } from '@emotion/react';
 
 import { RootStackParamList } from '@navigations/types';
 import Icon from '@components/Icon';
@@ -36,6 +37,7 @@ function HomeScreen() {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { t } = useTranslation();
   const { appDispatch } = useContext(AppStore);
+  const theme = useTheme();
 
   const { data, isLoading, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery<FetchPokemon, Error>(
@@ -87,14 +89,12 @@ function HomeScreen() {
   );
 
   return (
-    <DefaultLayout
-      title="Home"
-      accessoryLeft={<NavigationAction icon="menu-alt-2" />}
-      accessoryRight={<NavigationAction icon="heart" />}>
+    <DefaultLayout accessoryLeft={<NavigationAction icon="menu-alt-2" />}>
       <BackgroundIcon>
         <Icon name="pokemon" size={200} color="white" />
       </BackgroundIcon>
-      <LinearGradient colors={['rgba(255, 255, 255, 0)', '#131313']}>
+      <LinearGradient
+        colors={['rgba(255, 255, 255, 0)', theme.colors.background]}>
         <SearchSection>
           <SearchLabel>{t('What Pokémon are you looking for?')}</SearchLabel>
           <SearchBox>

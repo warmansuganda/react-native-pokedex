@@ -1,14 +1,14 @@
 import React, { ReactNode } from 'react';
 import { ThemeProvider } from '@emotion/react';
 
-import light from './light';
+import dark from './dark';
 
 interface ThemeProps {
   children: ReactNode | ReactNode[];
 }
 
 function Theme({ children }: ThemeProps) {
-  return <ThemeProvider theme={light}>{children}</ThemeProvider>;
+  return <ThemeProvider theme={dark}>{children}</ThemeProvider>;
 }
 
-export default Theme;
+export default Object.assign(Theme, { colors: dark.colors });

@@ -12,5 +12,6 @@ export default {
     dark: '#343a40',
     link: '#007bff',
     neutral: '#839198',
+    background: '#ffffff',
   },
 };
