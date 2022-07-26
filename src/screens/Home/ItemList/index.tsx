@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { Pokemon } from '@services/pokemon/types';
 import { View, TouchableOpacity } from 'react-native';
 
+import { zerofill } from '@utils/zerofill';
+
 import {
   PokemonCard,
   PokemonAvatar,
@@ -24,15 +26,7 @@ interface ItemListProps {
 
 function ItemList({ item, openDetail }: ItemListProps) {
   const image = useMemo(() => {
-    // return item.sprites.home.front_default;
     return item.sprites.other.home.front_default;
-    // if (item.name === 'charmander') {
-    //   return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/4.png';
-    // }
-
-    // return item.name === 'bulbasaur'
-    //   ? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/1.png'
-    //   : 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/25.png';
   }, [item]);
 
   return (
@@ -48,7 +42,7 @@ function ItemList({ item, openDetail }: ItemListProps) {
         </BackgroundAvatar>
         <PokemonDescription>
           <View>
-            <PokemonID>{`#${item.id}`}</PokemonID>
+            <PokemonID>{`#${zerofill(item.id, 3)}`}</PokemonID>
             <PokemonName>{item.name}</PokemonName>
           </View>
           <PokemonTypeBox>

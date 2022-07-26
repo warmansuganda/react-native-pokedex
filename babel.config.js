@@ -31,6 +31,7 @@ module.exports = {
           '@theme': './src/theme',
           '@configs': './src/configs',
           '@locales': './src/locales',
+          '@utils': './src/utils',
         },
       },
     ],
