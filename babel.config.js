@@ -25,6 +25,7 @@ module.exports = {
         alias: {
           '@components': './src/components',
           '@screens': './src/screens',
+          '@layouts': './src/layouts',
           '@navigations': './src/navigations',
           '@context': './src/context',
           '@services': './src/services',

@@ -13,11 +13,11 @@ import Icon from '@components/Icon';
 import { fetchPokemon } from '@services/pokemon';
 import { Pokemon, FetchPokemon } from '@services/pokemon/types';
 import { AppStore, AppTypeAction } from '@context/app';
+import DefaultLayout from '@layouts/DefaultLayout';
 
 import ItemList from './ItemList';
 
 import {
-  Container,
   MenuIcon,
   BackgroundIcon,
   SearchBox,
@@ -87,7 +87,7 @@ function HomeScreen() {
   );
 
   return (
-    <Container>
+    <DefaultLayout>
       <MenuIcon>
         <Icon name="menu-alt-2" size={32} color="white" />
       </MenuIcon>
@@ -121,7 +121,7 @@ function HomeScreen() {
           isLoading || isFetchingNextPage ? renderPlaceholder : null
         }
       />
-    </Container>
+    </DefaultLayout>
   );
 }
 

@@ -1,11 +1,5 @@
 import styled from '@emotion/native';
 
-export const Container = styled.View`
-  background-color: #131313;
-  flex: 1;
-  display: flex;
-`;
-
 export const MenuIcon = styled.View`
   padding: 10px 0 10px 10px;
   display: flex;
