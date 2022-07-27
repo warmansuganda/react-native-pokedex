@@ -2,7 +2,13 @@ import React, { useMemo, useState, ReactNode, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import TabItem, { TabItemProps } from './TabItem';
-import { Title, TitleWrapper, ActiveIndicator, Content } from './styles';
+import {
+  TabContainer,
+  Title,
+  TitleWrapper,
+  ActiveIndicator,
+  Content,
+} from './styles';
 
 interface Section {
   props: TabItemProps;
@@ -47,15 +53,17 @@ function Tab({ children }: TabProps) {
         horizontal
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
-        {tabs.map(section => (
-          <TitleWrapper
-            key={section.props.id}
-            activeOpacity={0.5}
-            onPress={() => handleChange(section.props.id)}>
-            <Title>{section.props.title}</Title>
-            {active === section.props.id && <ActiveIndicator />}
-          </TitleWrapper>
-        ))}
+        <TabContainer>
+          {tabs.map(section => (
+            <TitleWrapper
+              key={section.props.id}
+              activeOpacity={0.5}
+              onPress={() => handleChange(section.props.id)}>
+              <Title>{section.props.title}</Title>
+              {active === section.props.id && <ActiveIndicator />}
+            </TitleWrapper>
+          ))}
+        </TabContainer>
       </ScrollView>
       <Content>{content}</Content>
     </View>

@@ -13,6 +13,12 @@ import { zerofill } from '@utils/zerofill';
 import { Pokemon } from '@services/pokemon/types';
 import { RootStackParamList } from '@navigations/types';
 
+import AboutDetail from './AboutDetail';
+import AboutStatistic from './AboutStatistic';
+import AboutMove from './AboutMove';
+import AboutEvolution from './AboutEvolution';
+import AboutLocation from './AboutLocation';
+
 import {
   HeaderDetail,
   PokemonImage,
@@ -52,7 +58,7 @@ function DetailsScreen() {
       accessoryLeft={
         <NavigationAction icon="cheveron-left" onPress={handleBack} />
       }
-      accessoryRight={<NavigationAction icon="heart" />}>
+      accessoryRight={<NavigationAction icon="heart" color="#424242" />}>
       <BackgroundAvatar
         source={{
           uri: image,
@@ -86,19 +92,19 @@ function DetailsScreen() {
         <ContentDetail>
           <Tab>
             <Tab.Item id="about" title={t('About')}>
-              <PokemonTypeTitle>Tab Ini Adalah 1</PokemonTypeTitle>
+              <AboutDetail />
             </Tab.Item>
             <Tab.Item id="stats" title={t('Stats')}>
-              <PokemonTypeTitle>Stats</PokemonTypeTitle>
+              <AboutStatistic />
             </Tab.Item>
             <Tab.Item id="moves" title={t('Moves')}>
-              <PokemonTypeTitle>Moves</PokemonTypeTitle>
+              <AboutMove />
             </Tab.Item>
             <Tab.Item id="evolutions" title={t('Evolutions')}>
-              <PokemonTypeTitle>Evolutions</PokemonTypeTitle>
+              <AboutEvolution />
             </Tab.Item>
             <Tab.Item id="locations" title={t('Locations')}>
-              <PokemonTypeTitle>Locations</PokemonTypeTitle>
+              <AboutLocation />
             </Tab.Item>
           </Tab>
         </ContentDetail>

@@ -1,5 +1,11 @@
 import styled from '@emotion/native';
 
+export const TabContainer = styled.TouchableOpacity`
+  padding: 0 16px;
+  display: flex;
+  flex-direction: row;
+`;
+
 export const TitleWrapper = styled.TouchableOpacity`
   padding: 8px 16px;
   display: flex;
@@ -22,5 +28,5 @@ export const ActiveIndicator = styled.View`
 `;
 
 export const Content = styled.View`
-  padding: 16px;
+  padding: 16px 30px;
 `;
