@@ -10,9 +10,11 @@ function AboutMove() {
   const { t } = useTranslation();
   const { appState } = useContext(AppStore);
 
+  const pokemon = useMemo(() => appState.pokemon, [appState.pokemon]);
+
   return (
     <Container>
-      <Text>{t('AboutMove')}</Text>
+      <Text>{t('AboutMove {{name}}', { name: pokemon?.name })}</Text>
     </Container>
   );
 }
