@@ -42,3 +42,8 @@ export const SearchInput = styled.TextInput`
   flex: 1;
   color: white;
 `;
+
+export const EmptyQuery = styled.Text`
+  color: white;
+  font-weight: bold;
+`;

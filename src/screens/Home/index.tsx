@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useContext } from 'react';
+import React, { useCallback, useMemo, useContext, useState } from 'react';
 
 import { FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ import { useTheme } from '@emotion/react';
 
 import { RootStackParamList } from '@navigations/types';
 import Icon from '@components/Icon';
+import Empty from '@components/Empty';
 import NavigationAction from '@components/NavigationAction';
 import { fetchPokemon } from '@services/pokemon';
 import { Pokemon, FetchPokemon } from '@services/pokemon/types';
@@ -26,6 +27,7 @@ import {
   SearchLabel,
   SearchInput,
   SearchIcon,
+  EmptyQuery,
 } from './styles';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
@@ -38,18 +40,15 @@ function HomeScreen() {
   const { t } = useTranslation();
   const { appDispatch } = useContext(AppStore);
   const theme = useTheme();
+  const [query, setQuery] = useState('');
 
-  const { data, isLoading, fetchNextPage, isFetchingNextPage } =
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useInfiniteQuery<FetchPokemon, Error>(
-      ['fetch-pokemon'],
-      ({ pageParam }) => fetchPokemon(pageParam),
+      ['fetch-pokemon', query],
+      ({ pageParam }) => fetchPokemon(pageParam, query),
       {
         getNextPageParam: lastPage => {
-          if (lastPage.next !== null) {
-            return lastPage.next;
-          }
-
-          return lastPage;
+          return lastPage.next;
         },
       },
     );
@@ -60,14 +59,18 @@ function HomeScreen() {
   );
 
   const handleChangePage = useCallback(() => {
-    if (!isLoading && !isFetchingNextPage) {
+    if (!isLoading && !isFetchingNextPage && hasNextPage) {
       fetchNextPage();
     }
-  }, [fetchNextPage, isLoading, isFetchingNextPage]);
+  }, [fetchNextPage, isLoading, isFetchingNextPage, hasNextPage]);
 
   const handleFetchMore = useDebouncedCallback(() => {
     handleChangePage();
   }, 500);
+
+  const handleOnChange = useDebouncedCallback((value: string) => {
+    setQuery(value);
+  }, 1000);
 
   const handleOpenDetail = (item: Pokemon) => {
     appDispatch({ type: AppTypeAction.SELECT_POKEMON, payload: item });
@@ -104,6 +107,7 @@ function HomeScreen() {
             <SearchInput
               placeholder={t('Search pokemon, i.e. pikachu')}
               placeholderTextColor="#676666"
+              onChangeText={handleOnChange}
             />
           </SearchBox>
         </SearchSection>
@@ -119,6 +123,13 @@ function HomeScreen() {
         onEndReachedThreshold={0.2}
         ListFooterComponent={
           isLoading || isFetchingNextPage ? renderPlaceholder : null
+        }
+        ListEmptyComponent={
+          !isLoading && !isFetchingNextPage ? (
+            <Empty title={t('No search result found for')}>
+              <EmptyQuery>{`" ${query} "`}</EmptyQuery>
+            </Empty>
+          ) : null
         }
       />
     </DefaultLayout>

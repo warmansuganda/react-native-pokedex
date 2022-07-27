@@ -4,9 +4,22 @@ import axios, { AxiosResponse } from 'axios';
 import { Pokemon } from './types';
 
 // https://pokeapi.co/
-export const findPokemon = (name: string) => client.get(`/pokemon/${name}`);
+export const findPokemon = (name: string) =>
+  client.get(`/pokemon/${name.toLowerCase()}`);
 
-export const fetchPokemon = (page: number = 1) => {
+export const fetchPokemon = (page: number = 1, query?: string) => {
+  if (query) {
+    return findPokemon(query)
+      .then(response => ({
+        results: [response.data],
+        next: null,
+      }))
+      .catch(() => ({
+        results: [],
+        next: null,
+      }));
+  }
+
   const pageSize = 10;
 
   const params = {
