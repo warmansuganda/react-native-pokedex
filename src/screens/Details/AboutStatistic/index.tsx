@@ -1,18 +1,47 @@
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Text } from 'react-native';
 import { AppStore } from '@context/app';
+import { lorem } from '@utils/lorem-ipsum';
 
-import { Container } from './styles';
+import {
+  Container,
+  StatisticWrapper,
+  Statistic,
+  StatisticLabel,
+  StatisticValue,
+  StatisticBar,
+  StatisticProgress,
+  Description,
+  Heading,
+  Divider,
+} from './styles';
 
 function AboutStatistic() {
   const { t } = useTranslation();
   const { appState } = useContext(AppStore);
 
+  const stats = useMemo(() => appState.pokemon?.stats, [appState.pokemon]);
+
   return (
     <Container>
-      <Text>{t('AboutStatistic')}</Text>
+      <StatisticWrapper>
+        {stats?.map(item => (
+          <Statistic key={item.stat.name}>
+            <StatisticLabel>
+              {t(item.stat.name.replace('-', ' '))}
+            </StatisticLabel>
+            <StatisticValue>{item.base_stat}</StatisticValue>
+            <StatisticBar>
+              <StatisticProgress value={Math.min(item.base_stat, 100)} />
+            </StatisticBar>
+          </Statistic>
+        ))}
+      </StatisticWrapper>
+      <Description>{lorem.generateWords(20)}</Description>
+      <Heading>{t('Type Defenses')}</Heading>
+      <Divider />
+      <Description>{lorem.generateWords(20)}</Description>
     </Container>
   );
 }

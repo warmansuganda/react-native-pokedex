@@ -48,7 +48,8 @@ export const CardDescriptionValue = styled.Text`
 `;
 
 export const Description = styled.Text`
-  color: white;
+  color: #bdbdbd;
   margin-bottom: 14px;
   text-transform: capitalize;
+  font-size: 12px;
 `;

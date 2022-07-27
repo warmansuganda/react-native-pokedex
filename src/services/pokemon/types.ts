@@ -15,6 +15,13 @@ export interface Pokemon {
   }>;
   weight: number;
   height: number;
+  stats: Array<{
+    base_stat: number;
+    effort: number;
+    stat: {
+      name: string;
+    };
+  }>;
 }
 
 export interface FetchPokemon {
