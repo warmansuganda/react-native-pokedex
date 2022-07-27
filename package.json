@@ -9,7 +9,16 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",
-    "typescript": "yarn tsc --noEmit"
+    "typescript": "yarn tsc --noEmit",
+    "patch-version": "npm version patch",
+    "minor-version": "npm version minor",
+    "major-version": "npm version major",
+    "postversion": "react-native-version",
+    "clean": "cd android && ./gradlew clean && cd ..",
+    "build-debug": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "generate-debug": "cd android && ./gradlew clean && ./gradlew assembleDebug && cd ..",
+    "generate-release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
+    "reactotron": "adb reverse tcp:9090 tcp:9090"
   },
   "dependencies": {
     "@emotion/native": "^11.9.3",
