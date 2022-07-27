@@ -1,13 +1,13 @@
 import React, { useCallback, useMemo, useContext, useState } from 'react';
 
-import { FlatList, ListRenderItem } from 'react-native';
+import { ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { useInfiniteQuery } from 'react-query';
 import { useDebouncedCallback } from 'use-debounce';
-import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '@emotion/react';
+import { useAnimatedScrollHandler } from 'react-native-reanimated';
 
 import { RootStackParamList } from '@navigations/types';
 import Icon from '@components/Icon';
@@ -19,6 +19,7 @@ import { AppStore, AppTypeAction } from '@context/app';
 import DefaultLayout from '@layouts/DefaultLayout';
 
 import ItemList from './ItemList';
+import { useAnimations } from './animations';
 
 import {
   BackgroundIcon,
@@ -28,6 +29,9 @@ import {
   SearchInput,
   SearchIcon,
   EmptyQuery,
+  AnimatedFlatlist,
+  BackgroundGradient,
+  ListHeader,
 } from './styles';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
@@ -41,6 +45,8 @@ function HomeScreen() {
   const { appDispatch } = useContext(AppStore);
   const theme = useTheme();
   const [query, setQuery] = useState('');
+  const { offsetY, searchBoxAnimatedStyles, searchLabelAnimatedStyles } =
+    useAnimations();
 
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useInfiniteQuery<FetchPokemon, Error>(
@@ -91,16 +97,21 @@ function HomeScreen() {
     </>
   );
 
+  const onScroll = useAnimatedScrollHandler({
+    onScroll: event => {
+      offsetY.value = event.contentOffset.y;
+    },
+  });
+
   return (
-    <DefaultLayout accessoryLeft={<NavigationAction icon="menu-alt-2" />}>
-      <BackgroundIcon>
-        <Icon name="pokemon" size={200} color="white" />
-      </BackgroundIcon>
-      <LinearGradient
-        colors={['rgba(255, 255, 255, 0)', theme.colors.background]}>
+    <DefaultLayout
+      accessoryLeft={<NavigationAction icon="menu-alt-2" />}
+      accessoryRight={
         <SearchSection>
-          <SearchLabel>{t('What Pokémon are you looking for?')}</SearchLabel>
-          <SearchBox>
+          <SearchLabel style={searchLabelAnimatedStyles}>
+            {t('What Pokémon are you looking for?')}
+          </SearchLabel>
+          <SearchBox style={searchBoxAnimatedStyles}>
             <SearchIcon>
               <Icon name="search" size={24} color="white" />
             </SearchIcon>
@@ -111,9 +122,16 @@ function HomeScreen() {
             />
           </SearchBox>
         </SearchSection>
-      </LinearGradient>
+      }>
+      <BackgroundIcon>
+        <Icon name="pokemon" size={200} color="white" />
+      </BackgroundIcon>
+      <BackgroundGradient
+        colors={['rgba(255, 255, 255, 0)', theme.colors.background]}
+      />
 
-      <FlatList
+      <AnimatedFlatlist
+        onScroll={onScroll}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         keyExtractor={item => item.name}
@@ -121,6 +139,8 @@ function HomeScreen() {
         renderItem={renderItem}
         onEndReached={handleFetchMore}
         onEndReachedThreshold={0.2}
+        scrollEventThrottle={16}
+        ListHeaderComponent={<ListHeader />}
         ListFooterComponent={
           isLoading || isFetchingNextPage ? renderPlaceholder : null
         }

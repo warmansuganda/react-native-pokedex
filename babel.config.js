@@ -1,6 +1,7 @@
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
+    'react-native-reanimated/plugin',
     'transform-inline-environment-variables',
     '@babel/plugin-proposal-optional-chaining',
     '@babel/plugin-transform-flow-strip-types',
