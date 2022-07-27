@@ -1,4 +1,4 @@
-package com.awesomeproject;
+package com.jiwapokemon;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
