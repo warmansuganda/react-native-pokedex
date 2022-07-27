@@ -14,7 +14,6 @@ import {
   StatisticProgress,
   Description,
   Heading,
-  Divider,
 } from './styles';
 
 function AboutStatistic() {
@@ -33,14 +32,15 @@ function AboutStatistic() {
             </StatisticLabel>
             <StatisticValue>{item.base_stat}</StatisticValue>
             <StatisticBar>
-              <StatisticProgress value={Math.min(item.base_stat, 100)} />
+              <StatisticProgress
+                value={Math.min(Math.ceil((item.base_stat / 255) * 100), 100)}
+              />
             </StatisticBar>
           </Statistic>
         ))}
       </StatisticWrapper>
       <Description>{lorem.generateWords(20)}</Description>
       <Heading>{t('Type Defenses')}</Heading>
-      <Divider />
       <Description>{lorem.generateWords(20)}</Description>
     </Container>
   );

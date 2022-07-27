@@ -1,3 +1,4 @@
+import { Pokemon } from '@services/pokemon/types';
 import React, { createContext, Dispatch, ReactNode, useReducer } from 'react';
 import { AppState, AppAction, AppTypeAction } from './types';
 
@@ -28,6 +29,11 @@ export function AppProvider({ children }: AppProviderProps) {
           return { ...state, theme: action.payload };
         case AppTypeAction.SELECT_POKEMON:
           return { ...state, pokemon: action.payload };
+        case AppTypeAction.UPDATE_POKEMON_SPECIES:
+          return {
+            ...state,
+            pokemon: { ...state.pokemon, species: action.payload } as Pokemon,
+          };
         default:
           throw new Error();
       }

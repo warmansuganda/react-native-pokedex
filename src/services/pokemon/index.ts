@@ -7,6 +7,9 @@ import { Pokemon } from './types';
 export const findPokemon = (name: string) =>
   client.get(`/pokemon/${name.toLowerCase()}`);
 
+export const findPokemonSpecies = (name: string) =>
+  client.get(`/pokemon-species/${name.toLowerCase()}`);
+
 export const fetchPokemon = (page: number = 1, query?: string) => {
   if (query) {
     return findPokemon(query)

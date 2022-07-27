@@ -39,6 +39,7 @@ export const StatisticBar = styled.View`
 interface StatisticProgressProps {
   value: number;
 }
+
 export const StatisticProgress = styled.View<StatisticProgressProps>`
   background-color: #2cb688;
   height: 6px;
@@ -55,14 +56,8 @@ export const Description = styled.Text`
 
 export const Heading = styled.Text`
   color: white;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   text-transform: capitalize;
   font-size: 16px;
   font-weight: 700;
-`;
-
-export const Divider = styled.View`
-  background-color: #757575;
-  height: 1px;
-  margin-bottom: 14px;
 `;

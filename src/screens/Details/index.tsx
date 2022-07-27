@@ -4,14 +4,17 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTheme } from '@emotion/react';
 import { ScrollView } from 'react-native';
+import { useQuery } from 'react-query';
+import RT from 'reactotron-react-native';
 
 import NavigationAction from '@components/NavigationAction';
 import Tab from '@components/Tab';
 import DefaultLayout from '@layouts/DefaultLayout';
-import { AppStore } from '@context/app';
+import { AppStore, AppTypeAction } from '@context/app';
 import { zerofill } from '@utils/zerofill';
 import { Pokemon } from '@services/pokemon/types';
 import { RootStackParamList } from '@navigations/types';
+import { findPokemonSpecies } from '@services/pokemon';
 
 import AboutDetail from './AboutDetail';
 import AboutStatistic from './AboutStatistic';
@@ -37,7 +40,7 @@ type DetailsScreenNavigationProp = NativeStackNavigationProp<
 
 function DetailsScreen() {
   const { t } = useTranslation();
-  const { appState } = useContext(AppStore);
+  const { appState, appDispatch } = useContext(AppStore);
   const navigation = useNavigation<DetailsScreenNavigationProp>();
   const theme = useTheme();
 
@@ -51,6 +54,21 @@ function DetailsScreen() {
   }, [pokemon]);
 
   const handleBack = () => navigation.goBack();
+
+  useQuery(
+    ['pokemon-species', pokemon.name],
+    () => findPokemonSpecies(pokemon.name),
+    {
+      enabled: !!pokemon.name,
+      onSuccess: response => {
+        RT.log('pokemon-species', response.data);
+        appDispatch({
+          type: AppTypeAction.UPDATE_POKEMON_SPECIES,
+          payload: response.data,
+        });
+      },
+    },
+  );
 
   return (
     <DefaultLayout

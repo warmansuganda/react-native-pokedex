@@ -1,3 +1,12 @@
+export interface PokemonSpecies {
+  flavor_text_entries: Array<{
+    flavor_text: string;
+    language: {
+      name: string;
+    };
+  }>;
+}
+
 export interface Pokemon {
   id: number;
   name: string;
@@ -22,6 +31,7 @@ export interface Pokemon {
       name: string;
     };
   }>;
+  species: PokemonSpecies;
 }
 
 export interface FetchPokemon {
