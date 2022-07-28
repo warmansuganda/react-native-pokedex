@@ -28,6 +28,7 @@ export const InfoValue = styled.Text`
   font-size: 12px;
   font-weight: 700;
   flex: 1;
+  text-transform: capitalize;
 `;
 
 export const Description = styled.Text`

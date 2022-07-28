@@ -56,13 +56,34 @@ function AboutDetail() {
     [pokemon],
   );
 
+  const genera = useMemo(
+    () => pokemon?.species?.genera?.find(item => item.language.name === 'en'),
+    [pokemon],
+  );
+
+  const eggGroup = useMemo(
+    () =>
+      pokemon?.species?.egg_groups
+        ? pokemon?.species?.egg_groups.map(item => item.name)
+        : [],
+    [pokemon],
+  );
+
+  const ability = useMemo(
+    () =>
+      pokemon?.abilities
+        ? pokemon?.abilities.map(item => item.ability.name)
+        : [],
+    [pokemon],
+  );
+
   return (
     <Container>
       <Description>{removeWhiteSpace(flavor?.flavor_text || '')}</Description>
       <InfoWrapper>
         <Info>
-          <InfoLabel>{t('Species')}</InfoLabel>
-          <InfoValue>AAA</InfoValue>
+          <InfoLabel>{t('Habitat')}</InfoLabel>
+          <InfoValue>{pokemon?.species?.habitat?.name || '-'}</InfoValue>
         </Info>
         <Info>
           <InfoLabel>{t('Height')}</InfoLabel>
@@ -83,26 +104,26 @@ function AboutDetail() {
         </Info>
         <Info>
           <InfoLabel>{t('Abilities')}</InfoLabel>
-          <InfoValue>AAA</InfoValue>
+          <InfoValue>{ability.join(', ')}</InfoValue>
         </Info>
         <Info>
-          <InfoLabel>{t('Weeknes')}</InfoLabel>
-          <InfoValue>AAA</InfoValue>
+          <InfoLabel>{t('Color')}</InfoLabel>
+          <InfoValue>{pokemon?.species?.color?.name || '-'}</InfoValue>
         </Info>
       </InfoWrapper>
       <Heading>{t('Breeding')}</Heading>
       <InfoWrapper>
         <Info>
-          <InfoLabel>{t('Gender')}</InfoLabel>
-          <InfoValue>AAA</InfoValue>
+          <InfoLabel>{t('Egg Group')}</InfoLabel>
+          <InfoValue>{eggGroup.join(', ')}</InfoValue>
         </Info>
         <Info>
-          <InfoLabel>{t('Egg Group')}</InfoLabel>
-          <InfoValue>AAA</InfoValue>
+          <InfoLabel>{t('Species')}</InfoLabel>
+          <InfoValue>{genera?.genus}</InfoValue>
         </Info>
         <Info>
-          <InfoLabel>{t('Egg Group')}</InfoLabel>
-          <InfoValue>AAA</InfoValue>
+          <InfoLabel>{t('Shape')}</InfoLabel>
+          <InfoValue>{pokemon?.species?.shape?.name || '-'}</InfoValue>
         </Info>
       </InfoWrapper>
     </Container>

@@ -1,9 +1,27 @@
 export interface PokemonSpecies {
+  shape: {
+    name: string;
+  };
+  habitat: {
+    name: string;
+  };
+  color: {
+    name: string;
+  };
   flavor_text_entries: Array<{
     flavor_text: string;
     language: {
       name: string;
     };
+  }>;
+  genera: Array<{
+    genus: string;
+    language: {
+      name: string;
+    };
+  }>;
+  egg_groups: Array<{
+    name: string;
   }>;
 }
 
@@ -28,6 +46,11 @@ export interface Pokemon {
     base_stat: number;
     effort: number;
     stat: {
+      name: string;
+    };
+  }>;
+  abilities: Array<{
+    ability: {
       name: string;
     };
   }>;
