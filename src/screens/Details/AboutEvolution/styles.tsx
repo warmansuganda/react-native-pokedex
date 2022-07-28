@@ -37,4 +37,5 @@ export const BoxName = styled.View`
 export const PokemonName = styled.Text`
   color: white;
   text-align: center;
+  font-size: 12px;
 `;

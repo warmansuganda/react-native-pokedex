@@ -5,7 +5,6 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTheme } from '@emotion/react';
 import { ScrollView } from 'react-native';
 import { useQuery } from 'react-query';
-import RT from 'reactotron-react-native';
 
 import NavigationAction from '@components/NavigationAction';
 import Tab from '@components/Tab';
@@ -61,7 +60,6 @@ function DetailsScreen() {
     {
       enabled: !!pokemon.name,
       onSuccess: response => {
-        RT.log('pokemon-species', response);
         appDispatch({
           type: AppTypeAction.UPDATE_POKEMON,
           payload: response,
