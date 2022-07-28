@@ -1,20 +1,26 @@
 import React, { useContext, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { Text } from 'react-native';
 import { AppStore } from '@context/app';
 
-import { Container } from './styles';
+import { Container, Card, Avatar, Image, PokemonName, BoxName } from './styles';
 
 function AboutEvolution() {
-  const { t } = useTranslation();
   const { appState } = useContext(AppStore);
 
   const pokemon = useMemo(() => appState.pokemon, [appState.pokemon]);
 
   return (
     <Container>
-      <Text>{t('AboutEvolution {{name}}', { name: pokemon?.name })}</Text>
+      {pokemon?.evolutions?.map(item => (
+        <Card key={item.id}>
+          <Avatar>
+            <Image source={{ uri: item.sprites.other.home.front_default }} />
+          </Avatar>
+          <BoxName>
+            <PokemonName>{item.name}</PokemonName>
+          </BoxName>
+        </Card>
+      ))}
     </Container>
   );
 }

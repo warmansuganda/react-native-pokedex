@@ -84,7 +84,7 @@ export interface Pokemon {
   }>;
   species: PokemonSpecies;
   location: PokemonLocation;
-  evolution: Pokemon[];
+  evolutions: Pokemon[];
 }
 
 export interface FetchPokemon {

@@ -10,8 +10,29 @@ export const findPokemon = (name: string) =>
 export const findPokemonSpecies = (name: string) =>
   client.get(`/pokemon-species/${name.toLowerCase()}`);
 
-export const findPokemonEvolutions = (id: number) =>
-  client.get(`/evolution-chain/${id}`);
+export const findPokemonEvolutions = async (id: number) => {
+  try {
+    const evolution = await client.get(`/evolution-chain/${id}`);
+
+    const flatten = (chain: any[], result: any[] = []) => {
+      for (let index = 0; index < chain.length; index += 1) {
+        const element = chain[index];
+        result.push(element.species);
+        if (element.evolves_to.length) {
+          flatten(element.evolves_to, result);
+        }
+      }
+      return result;
+    };
+
+    const chains = flatten(evolution.data.chain.evolves_to, []);
+    return axios.all<AxiosResponse<Pokemon>>(
+      chains.map(item => findPokemon(item.name)),
+    );
+  } catch (error) {
+    throw new Error('Feth pokemon evolution failed');
+  }
+};
 
 export const findPokemonLocation = (id: number) =>
   client.get(`/location/${id}`);
@@ -19,17 +40,23 @@ export const findPokemonLocation = (id: number) =>
 export const findPokemonDetail = async (pokemon: Pokemon) => {
   try {
     const details = await axios.all<
-      AxiosResponse<PokemonSpecies | PokemonLocation | Pokemon[]>
+      | AxiosResponse<PokemonSpecies>
+      | Array<AxiosResponse<Pokemon>>
+      | AxiosResponse<PokemonLocation>
     >([
       findPokemonSpecies(pokemon.name),
       findPokemonEvolutions(pokemon.id),
       findPokemonLocation(pokemon.id),
     ]);
 
+    const species = details[0] as AxiosResponse<PokemonSpecies>;
+    const evolutions = details[1] as Array<AxiosResponse<Pokemon>>;
+    const location = details[2] as AxiosResponse<PokemonLocation>;
+
     return {
-      species: details[0].data as PokemonSpecies,
-      evolutions: details[1].data as Pokemon[],
-      location: details[2].data as PokemonLocation,
+      species: species.data,
+      evolutions: evolutions.map(item => item.data),
+      location: location.data,
     };
   } catch (error) {
     throw new Error('Find pokemon detail failed');
