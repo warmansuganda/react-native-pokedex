@@ -54,6 +54,19 @@ export interface Pokemon {
       name: string;
     };
   }>;
+  moves: Array<{
+    move: {
+      name: string;
+    };
+    version_group_details: Array<{
+      move_learn_method: {
+        name: string;
+      };
+      version_group: {
+        name: string;
+      };
+    }>;
+  }>;
   species: PokemonSpecies;
 }
 

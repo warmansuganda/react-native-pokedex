@@ -5,7 +5,6 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTheme } from '@emotion/react';
 import { ScrollView } from 'react-native';
 import { useQuery } from 'react-query';
-import RT from 'reactotron-react-native';
 
 import NavigationAction from '@components/NavigationAction';
 import Tab from '@components/Tab';
@@ -61,7 +60,6 @@ function DetailsScreen() {
     {
       enabled: !!pokemon.name,
       onSuccess: response => {
-        RT.log('pokemon-species', response.data);
         appDispatch({
           type: AppTypeAction.UPDATE_POKEMON_SPECIES,
           payload: response.data,
@@ -115,11 +113,11 @@ function DetailsScreen() {
             <Tab.Item id="stats" title={t('Stats')}>
               <AboutStatistic />
             </Tab.Item>
-            <Tab.Item id="moves" title={t('Moves')}>
-              <AboutMove />
-            </Tab.Item>
             <Tab.Item id="evolutions" title={t('Evolutions')}>
               <AboutEvolution />
+            </Tab.Item>
+            <Tab.Item id="moves" title={t('Moves')}>
+              <AboutMove />
             </Tab.Item>
             <Tab.Item id="locations" title={t('Locations')}>
               <AboutLocation />
