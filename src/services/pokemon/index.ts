@@ -1,7 +1,7 @@
 import client from '@services/client';
 import axios, { AxiosResponse } from 'axios';
 
-import { Pokemon } from './types';
+import { Pokemon, PokemonLocation, PokemonSpecies } from './types';
 
 // https://pokeapi.co/
 export const findPokemon = (name: string) =>
@@ -9,6 +9,32 @@ export const findPokemon = (name: string) =>
 
 export const findPokemonSpecies = (name: string) =>
   client.get(`/pokemon-species/${name.toLowerCase()}`);
+
+export const findPokemonEvolutions = (id: number) =>
+  client.get(`/evolution-chain/${id}`);
+
+export const findPokemonLocation = (id: number) =>
+  client.get(`/location/${id}`);
+
+export const findPokemonDetail = async (pokemon: Pokemon) => {
+  try {
+    const details = await axios.all<
+      AxiosResponse<PokemonSpecies | PokemonLocation | Pokemon[]>
+    >([
+      findPokemonSpecies(pokemon.name),
+      findPokemonEvolutions(pokemon.id),
+      findPokemonLocation(pokemon.id),
+    ]);
+
+    return {
+      species: details[0].data as PokemonSpecies,
+      evolutions: details[1].data as Pokemon[],
+      location: details[2].data as PokemonLocation,
+    };
+  } catch (error) {
+    throw new Error('Find pokemon detail failed');
+  }
+};
 
 export const fetchPokemon = (page: number = 1, query?: string) => {
   if (query) {

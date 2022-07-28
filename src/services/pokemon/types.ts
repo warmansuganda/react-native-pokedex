@@ -1,3 +1,18 @@
+export interface PokemonLocation {
+  region: {
+    name: string;
+  };
+  names: Array<{
+    name: string;
+    language: {
+      name: string;
+    };
+  }>;
+  areas: Array<{
+    name: string;
+  }>;
+}
+
 export interface PokemonSpecies {
   shape: {
     name: string;
@@ -68,6 +83,8 @@ export interface Pokemon {
     }>;
   }>;
   species: PokemonSpecies;
+  location: PokemonLocation;
+  evolution: Pokemon[];
 }
 
 export interface FetchPokemon {
